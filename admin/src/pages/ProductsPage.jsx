@@ -192,8 +192,9 @@ function ProductsPage() {
 
       {/* ADD/EDIT PRODUCT MODAL */}
 
-     <input type="checkbox" id="product-modal" className="modal-toggle" checked={showModal} onChange={() => {}} />
-<div className={`modal ${showModal ? "modal-open" : ""}`}>
+      <input type="checkbox" className="modal-toggle" checked={showModal} />
+
+      <div className="modal">
         <div className="modal-box max-w-2xl">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-bold text-2xl">
