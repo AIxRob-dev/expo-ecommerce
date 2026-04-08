@@ -6,11 +6,25 @@ import ProductsPage from "./pages/ProductsPage";
 import OrdersPage from "./pages/OrdersPage";
 import CustomersPage from "./pages/CustomersPage";
 import DashboardLayout from "./layouts/DashboardLayout";
-
 import PageLoader from "./components/PageLoader";
+import { useEffect } from "react";
+import { setAuthToken } from "./lib/axios"; // ✅ update path if different
 
 function App() {
-  const { isSignedIn, isLoaded } = useAuth();
+  const { isSignedIn, isLoaded, getToken } = useAuth();
+
+  // ✅ Attach Clerk Bearer token to every axios request
+  useEffect(() => {
+    const attachToken = async () => {
+      if (isSignedIn) {
+        const token = await getToken();
+        setAuthToken(token);
+      } else {
+        setAuthToken(null);
+      }
+    };
+    attachToken();
+  }, [isSignedIn, getToken]);
 
   if (!isLoaded) return <PageLoader />;
 
